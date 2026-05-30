@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gor Yeghiazaryan | Shopify Developer & Frontend Specialist</title>
+    <meta name="description" content="Expert Shopify Developer helping businesses build, customize, and optimize high-performing eCommerce stores.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #95bf47; 
+            --primary-dark: #7da035;
+            --secondary: #0f172a;
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; background: var(--bg); overflow-x: hidden; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 80px 0; }
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-4 { gap: 1rem; }
+        .gap-8 { gap: 2rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        
+        h1, h2, h3 { color: var(--secondary); font-weight: 700; line-height: 1.2; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        p { color: var(--text-light); margin-bottom: 1.5rem; font-size: 1.1rem; }
+        
+        /* Links instead of buttons */
+        .link { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+        .link:hover { border-bottom-color: var(--primary); }
+
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 15px 0; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        /* Hero */
+        .hero { padding-top: 120px; padding-bottom: 80px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); }
+        .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero-badge { display: inline-block; padding: 6px 12px; background: #dcfce7; color: #166534; border-radius: 50px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .hero-stats { display: flex; gap: 2rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+        .stat-item strong { display: block; font-size: 1.5rem; color: var(--secondary); }
+        .stat-item span { font-size: 0.875rem; color: var(--text-light); }
+
+        /* Services */
+        .services-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .service-card { background: white; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .service-icon { width: 50px; height: 50px; background: #f0fdf4; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; }
+        
+        /* About / Why Me */
+        .about-section { background: var(--bg-light); }
+        .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .check-list { list-style: none; }
+        .check-list li { padding-left: 2rem; position: relative; margin-bottom: 1rem; color: var(--text); }
+        .check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .tech-tag { padding: 8px 16px; background: white; border: 1px solid var(--border); border-radius: 50px; font-weight: 500; color: var(--text); font-size: 0.9rem; }
+
+        /* Portfolio */
+        .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .portfolio-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; }
+        .portfolio-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .portfolio-img { height: 200px; background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%); overflow: hidden; }
+        .portfolio-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .portfolio-card:hover .portfolio-img img { transform: scale(1.05); }
+        .portfolio-info { padding: 1.5rem; }
+        .portfolio-info h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .portfolio-info p { font-size: 0.9rem; margin-bottom: 1rem; }
+        .portfolio-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .portfolio-tag { padding: 4px 12px; background: var(--bg-light); border-radius: 50px; font-size: 0.75rem; color: var(--text-light); }
+
+        /* Contact */
+        .contact-wrapper { max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; }
+        .contact-email { font-size: 1.25rem; font-weight: 600; color: var(--primary); text-decoration: none; word-break: break-all; border-bottom: 2px solid var(--primary); padding-bottom: 2px; }
+        .contact-email:hover { color: var(--primary-dark); }
+        .contact-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+        .contact-link { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--text); transition: all 0.3s; font-weight: 600; font-size: 0.85rem; }
+        .contact-link:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-3px); }
+        
+        /* Footer */
+        footer { background: var(--secondary); color: white; padding: 40px 0 30px; text-align: center; }
+        footer p { color: #64748b; font-size: 0.9rem; margin: 0; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero { padding-top: 100px; text-align: center; }
+            .hero-stats { justify-content: center; flex-wrap: wrap; }
+            .hero-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Gor<span>Dev</span></a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="grid hero-grid">
+                <div class="fade-in">
+                    <span class="hero-badge">Available for New Projects</span>
+                    <h1>Build, Customize & Optimize Your <span style="color: var(--primary);">Shopify Store</span></h1>
+                    <p>I help businesses create high-performing eCommerce stores with clean code, responsive design, and technical precision. From setup to customization, I handle the tech so you can focus on sales.</p>
+                    <div class="flex gap-4 hero-links" style="flex-wrap: wrap;">
+                        <a href="#portfolio" class="link">View My Work</a>
+                        <a href="https://www.upwork.com/freelancers/~01f46ac155d0568601" target="_blank" class="link">Upwork Profile</a>
+                        <a href="#contact" class="link">Contact Me</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item"><strong>5+</strong><span>Years Exp.</span></div>
+                        <div class="stat-item"><strong>100%</strong><span>Job Success</span></div>
+                        <div class="stat-item"><strong>50+</strong><span>Projects</span></div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%); border-radius: 20px; padding: 2rem; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
+                        <div style="text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">💻</div>
+                            <h3 style="color: var(--secondary);">Full-Stack eCommerce Solutions</h3>
+                            <p style="font-size: 0.9rem;">Shopify • Frontend • WordPress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h2>How I Can Help You</h2>
+                <p>Comprehensive development services tailored to your eCommerce goals.</p>
+            </div>
+            <div class="grid services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon"></div>
+                    <h3>Shopify Store Setup</h3>
+                    <p>Complete store configuration from scratch. Theme selection, app integration, payment gateway setup, and initial product loading.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎨</div>
+                    <h3>Theme Customization</h3>
+                    <p>Custom Liquid coding to modify existing themes or build custom sections that match your brand identity perfectly.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"></div>
+                    <h3>Bug Fixes & Troubleshooting</h3>
+                    <p>Fast resolution of layout issues, broken functionality, mobile responsiveness errors, and speed optimization.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">💻</div>
+                    <h3>Frontend Development</h3>
+                    <p>Clean HTML, CSS, and JavaScript implementation for landing pages, custom sections, and interactive UI elements.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"></div>
+                    <h3>Responsive Design</h3>
+                    <p>Ensuring your store looks flawless and functions smoothly on desktops, tablets, and mobile devices.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🌐</div>
+                    <h3>WordPress Development</h3>
+                    <p>Custom WordPress sites, theme customization, and plugin management for blogs and corporate websites.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Why Me Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="grid about-grid">
+                <div class="fade-in">
+                    <h2>Why Work With Me?</h2>
+                    <p>I combine technical expertise with a business-first mindset. My background in software development (SAPS Polytechnic College) and experience in customer support means I understand both the code and the customer.</p>
+                    <ul class="check-list">
+                        <li><strong>Clean, Maintainable Code:</strong> I write code that is easy to update and scale in the future.</li>
+                        <li><strong>Reliable Communication:</strong> Regular updates and clear explanations of technical issues.</li>
+                        <li><strong>Business Focus:</strong> Every change I make is aimed at improving user experience and conversions.</li>
+                        <li><strong>Technical Versatility:</strong> Proficient in Shopify, HTML/CSS, JS, jQuery, PHP, MySQL, and Bootstrap.</li>
+                    </ul>
+                </div>
+                <div class="fade-in" style="background: white; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border);">
+                    <h3>My Technical Stack</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">Tools and technologies I use to deliver high-quality results.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Shopify/Liquid</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">jQuery</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h2>Featured Projects</h2>
+                <p>A selection of my recent work for clients worldwide.</p>
+            </div>
+            <div class="grid portfolio-grid">
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/12aab5e32-1b6d-4cd7-a68c-c9ef5948a8e3.png" alt="PhoneHub Shopify Store">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>PhoneHub Electronics Store</h3>
+                        <p>Complete Shopify store setup for electronics accessories with custom theme customization and product catalog management.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Shopify</span>
+                            <span class="portfolio-tag">Theme Customization</span>
+                            <span class="portfolio-tag">Product Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/1ff877f5b-918c-491b-83db-256c90469152.png" alt="Fashion E-commerce">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Fashion E-commerce Platform</h3>
+                        <p>Responsive Shopify store for fashion retail with advanced filtering, size guides, and integrated payment solutions.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Shopify</span>
+                            <span class="portfolio-tag">Responsive Design</span>
+                            <span class="portfolio-tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/1b3f94ab8-be39-41de-8325-896c4285a16d.png" alt="SaaS Landing Page">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>SaaS Landing Page</h3>
+                        <p>High-converting landing page for a tech startup with modern design, smooth animations, and optimized call-to-action elements.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">HTML/CSS</span>
+                            <span class="portfolio-tag">JavaScript</span>
+                            <span class="portfolio-tag">Landing Page</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/1ea0a9c98-3279-427e-b0cd-515ab415b174.png" alt="Wellness Store">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Wellness Products Store</h3>
+                        <p>Shopify store for health and wellness products with subscription features and mobile-optimized design.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Shopify</span>
+                            <span class="portfolio-tag">Subscription</span>
+                            <span class="portfolio-tag">Mobile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/137f99bb0-b564-4875-9926-eae90b4ce5ff.png" alt="Corporate WordPress">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Corporate WordPress Site</h3>
+                        <p>Professional WordPress website with custom theme development, contact forms, and SEO optimization.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">WordPress</span>
+                            <span class="portfolio-tag">Custom Theme</span>
+                            <span class="portfolio-tag">SEO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-img">
+                        <img src="https://image.qwenlm.ai/public_source/30d0b7c6-2f2a-4fff-95df-55ef01b2df97/1239be179-4244-4f8f-82eb-3e7e2cd5ec94.png" alt="Store Optimization">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Store Optimization & Bug Fixes</h3>
+                        <p>Technical troubleshooting and performance optimization for existing Shopify store, improving loading speed by 40%.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Bug Fixes</span>
+                            <span class="portfolio-tag">Performance</span>
+                            <span class="portfolio-tag">Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="text-center fade-in" style="margin-bottom: 3rem;">
+                <h2>Let's Build Something Great</h2>
+                <p>Ready to upgrade your store or start a new project? Reach out to me directly.</p>
+            </div>
+            <div class="contact-wrapper fade-in">
+                <div style="font-size: 3rem; margin-bottom: 1rem;"></div>
+                <h3 style="margin-bottom: 0.5rem;">Get In Touch</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Email me directly and I'll respond within 24 hours.</p>
+                <a href="mailto:gor.yeghazaryan@mail.ru" class="contact-email">gor.yeghazaryan@mail.ru</a>
+                <div class="contact-links">
+                    <a href="https://www.upwork.com/freelancers/~01f46ac155d0568601" target="_blank" class="contact-link" title="Upwork">Up</a>
+                    <a href="#" class="contact-link" title="LinkedIn">in</a>
+                    <a href="#" class="contact-link" title="GitHub">gh</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="logo" style="color: white; margin-bottom: 1rem; display: inline-block;">Gor<span>Dev</span></a>
+            <p style="margin-bottom: 0.5rem;">Professional Shopify Developer & Frontend Specialist</p>
+            <p>&copy; 2024 Gor Yeghiazaryan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
+
