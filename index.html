@@ -586,19 +586,25 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
         // Copy Email Function
-        window.copyEmail = function(btn) {
-                const card = btn.closest('.contact-email-card');
-                const emailElement = card.querySelector('.email-copy');
-            
-                const email = emailElement.innerText.trim();
-            
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(email).then(() => setCopied(btn)).catch(() => fallbackCopy(btn, email));
-                } else {
-                    fallbackCopy(btn, email);
-                }
-            };
-
+       window.copyEmail = function(btn) {
+            const card = btn.closest('.contact-info-card');
+            const link = card.querySelector('a');
+        
+            let value = link.getAttribute('href');
+        
+            if (value.startsWith('mailto:')) {
+                value = value.replace('mailto:', '');
+            }
+        
+            if (value.startsWith('tel:')) {
+                value = value.replace('tel:', '');
+            }
+        
+            navigator.clipboard.writeText(value)
+                .then(() => setCopied(btn))
+                .catch(() => fallbackCopy(btn, value));
+        };
+        
         function fallbackCopy(btn, text) {
             const t = document.createElement('textarea');
             t.value = text;
