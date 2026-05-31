@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             --primary: #95bf47; 
@@ -21,6 +22,7 @@
             --radius: 8px;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --gradient-primary: linear-gradient(135deg, #95bf47, #7da035);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,7 +48,6 @@
         h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
         p { color: var(--text-light); margin-bottom: 1.5rem; font-size: 1.1rem; }
         
-        /* Links instead of buttons */
         .link { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
         .link:hover { border-bottom-color: var(--primary); }
 
@@ -91,17 +92,99 @@
         .portfolio-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .portfolio-tag { padding: 4px 12px; background: var(--bg-light); border-radius: 50px; font-size: 0.75rem; color: var(--text-light); }
 
-        /* Contact */
-        .contact-wrapper { max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; }
-        .contact-email { font-size: 1.25rem; font-weight: 600; color: var(--primary); text-decoration: none; word-break: break-all; border-bottom: 2px solid var(--primary); padding-bottom: 2px; }
-        .contact-email:hover { color: var(--primary-dark); }
-        .contact-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
-        .contact-link { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--text); transition: all 0.3s; font-weight: 600; font-size: 0.85rem; }
-        .contact-link:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-3px); }
+        /* ===== MODERN CONTACT SECTION ===== */
+        .contact-section { background: var(--bg-light); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
         
-        /* Footer */
-        footer { background: var(--secondary); color: white; padding: 40px 0 30px; text-align: center; }
-        footer p { color: #64748b; font-size: 0.9rem; margin: 0; }
+        .contact-info-card { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 0; overflow: hidden; transition: all 0.3s; margin-bottom: 1.5rem; position: relative; }
+        .contact-info-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-primary); opacity: 0; transition: opacity 0.3s; }
+        .contact-info-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .contact-info-card:hover::before { opacity: 1; }
+        
+        .contact-card-body { padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+        
+        .contact-card-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; }
+        .contact-card-icon svg { width: 24px; height: 24px; position: relative; z-index: 1; }
+        
+        .contact-card-content { flex: 1; }
+        .contact-card-label { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 4px; }
+        .contact-card-value { font-size: 1rem; font-weight: 600; }
+        .contact-card-value a { color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s; }
+        .contact-card-value a:hover { color: var(--primary); }
+        .contact-card-arrow { transition: transform 0.3s; opacity: 0; }
+        .contact-info-card:hover .contact-card-arrow { opacity: 1; transform: translateX(4px); }
+
+        /* Modern Email Card */
+        .contact-email-card { border-color: var(--primary); box-shadow: 0 0 20px rgba(149, 191, 71, 0.1); }
+        .contact-email-card .contact-card-body { background: linear-gradient(135deg, rgba(149, 191, 71, 0.03), rgba(149, 191, 71, 0.08)); }
+        .contact-email-card .contact-card-icon { width: 60px; height: 60px; border-radius: 14px; background: var(--gradient-primary); overflow: hidden; position: relative; }
+        .contact-email-card .contact-card-icon::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent); }
+        .contact-email-card .contact-card-icon svg { stroke: white; width: 28px; height: 28px; }
+        .contact-email-card .contact-card-label { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+        .contact-email-card .contact-card-value a { color: var(--primary); font-family: 'Inter', monospace; }
+        
+        .copy-btn { position: absolute; bottom: 16px; right: 20px; padding: 5px 10px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 6px; color: var(--text-light); font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; font-family: 'Inter', sans-serif; font-weight: 500; }
+        .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .copy-btn.copied { border-color: var(--primary); color: var(--primary); background: rgba(149, 191, 71, 0.1); }
+
+        /* Social Cards */
+        .contact-social-card .contact-card-icon { background: var(--bg-light); border: 1px solid var(--border); border-radius: 10px; }
+        .contact-social-card.linkedin .contact-card-icon svg { stroke: #0A66C2; }
+        .contact-social-card.upwork .contact-card-icon svg { stroke: #14A800; }
+        .contact-social-card.fiverr .contact-card-icon svg { stroke: #1DBF73; }
+        .contact-social-card:hover .contact-card-icon { background: rgba(149, 191, 71, 0.1); border-color: var(--primary); }
+
+        /* Contact Form */
+        .contact-form-wrapper { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+        .contact-form-wrapper h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .contact-form-wrapper > p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; background: var(--bg-light); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: all 0.2s; outline: none; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(149, 191, 71, 0.15); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        
+        .form-submit { width: 100%; padding: 14px; background: var(--gradient-primary); color: white; border: none; border-radius: var(--radius); font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(149, 191, 71, 0.3); }
+
+        /* ===== MODERN FOOTER ===== */
+        .footer { background: var(--secondary); color: white; padding: 50px 0 30px; }
+        .footer-brand { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-logo { font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; }
+        .footer-logo span { color: var(--primary); }
+        .footer-tagline { font-size: 0.85rem; color: #64748b; }
+        
+        .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+        .footer-text { font-size: 0.85rem; color: #64748b; }
+        .footer-text .heart { color: var(--primary); display: inline-block; animation: heartBeat 2s ease-in-out infinite; }
+        
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        
+        .footer-socials-modern { display: flex; gap: 10px; }
+        .footer-social-link { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; position: relative; overflow: hidden; background: rgba(255,255,255,0.05); }
+        .footer-social-link svg { width: 18px; height: 18px; transition: all 0.3s; position: relative; z-index: 1; }
+        
+        .footer-social-link.linkedin svg { stroke: #0A66C2; fill: none; }
+        .footer-social-link.github svg { stroke: #8b949e; fill: none; }
+        .footer-social-link.upwork svg { stroke: #14A800; fill: none; }
+        .footer-social-link.email svg { stroke: var(--primary); fill: none; }
+        
+        .footer-social-link:hover { transform: translateY(-4px); border-color: transparent; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .footer-social-link.linkedin:hover { background: #0A66C2; }
+        .footer-social-link.linkedin:hover svg { stroke: white; }
+        .footer-social-link.github:hover { background: #24292e; }
+        .footer-social-link.github:hover svg { stroke: white; }
+        .footer-social-link.upwork:hover { background: #14A800; }
+        .footer-social-link.upwork:hover svg { stroke: white; }
+        .footer-social-link.email:hover { background: var(--primary); }
+        .footer-social-link.email:hover svg { stroke: white; }
+
+        .footer-back-top { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+        .footer-back-top svg { width: 16px; height: 16px; stroke: #8b949e; fill: none; stroke-width: 2; }
+        .footer-back-top:hover { border-color: var(--primary); background: var(--primary); transform: translateY(-3px); }
+        .footer-back-top:hover svg { stroke: white; }
 
         /* Animations */
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
@@ -112,6 +195,13 @@
             .hero { padding-top: 100px; text-align: center; }
             .hero-stats { justify-content: center; flex-wrap: wrap; }
             .hero-links { justify-content: center; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-form-wrapper { padding: 1.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-brand { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .contact-email-card .copy-btn { position: static; margin-top: 10px; }
+            .contact-card-body { flex-direction: column; text-align: center; padding: 18px; }
         }
     </style>
 </head>
@@ -165,32 +255,32 @@
             </div>
             <div class="grid services-grid">
                 <div class="service-card fade-in">
-                    <div class="service-icon"></div>
+                    <div class="service-icon"><i class="fas fa-store" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>Shopify Store Setup</h3>
                     <p>Complete store configuration from scratch. Theme selection, app integration, payment gateway setup, and initial product loading.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🎨</div>
+                    <div class="service-icon"><i class="fas fa-palette" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>Theme Customization</h3>
                     <p>Custom Liquid coding to modify existing themes or build custom sections that match your brand identity perfectly.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon"></div>
+                    <div class="service-icon"><i class="fas fa-bug" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>Bug Fixes & Troubleshooting</h3>
                     <p>Fast resolution of layout issues, broken functionality, mobile responsiveness errors, and speed optimization.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">💻</div>
+                    <div class="service-icon"><i class="fas fa-code" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>Frontend Development</h3>
                     <p>Clean HTML, CSS, and JavaScript implementation for landing pages, custom sections, and interactive UI elements.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon"></div>
+                    <div class="service-icon"><i class="fas fa-mobile-alt" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>Responsive Design</h3>
                     <p>Ensuring your store looks flawless and functions smoothly on desktops, tablets, and mobile devices.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🌐</div>
+                    <div class="service-icon"><i class="fab fa-wordpress" style="color: var(--primary); font-size: 1.3rem;"></i></div>
                     <h3>WordPress Development</h3>
                     <p>Custom WordPress sites, theme customization, and plugin management for blogs and corporate websites.</p>
                 </div>
@@ -335,36 +425,189 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section" style="background: var(--bg-light);">
+    <section id="contact" class="section contact-section">
         <div class="container">
             <div class="text-center fade-in" style="margin-bottom: 3rem;">
                 <h2>Let's Build Something Great</h2>
                 <p>Ready to upgrade your store or start a new project? Reach out to me directly.</p>
             </div>
-            <div class="contact-wrapper fade-in">
-                <div style="font-size: 3rem; margin-bottom: 1rem;"></div>
-                <h3 style="margin-bottom: 0.5rem;">Get In Touch</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Email me directly and I'll respond within 24 hours.</p>
-                <a href="mailto:gor.yeghazaryan@mail.ru" class="contact-email">gor.yeghazaryan@mail.ru</a>
-                <div class="contact-links">
-                    <a href="https://www.upwork.com/freelancers/~01f46ac155d0568601" target="_blank" class="contact-link" title="Upwork">Up</a>
-                    <a href="#" class="contact-link" title="LinkedIn">in</a>
-                    <a href="#" class="contact-link" title="GitHub">gh</a>
+            <div class="contact-grid">
+                <!-- Left: Contact Info Cards -->
+                <div>
+                    <!-- Email Card -->
+                    <div class="contact-info-card contact-email-card fade-in">
+                        <div class="contact-card-body">
+                            <div class="contact-card-icon">
+                                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">Email Me</div>
+                                <div class="contact-card-value">
+                                    <a href="mailto:gor.yeghazaryan@mail.ru">gor.yeghazaryan@mail.ru</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="copy-btn" onclick="copyEmail(this)">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+
+                    <!-- Upwork Card -->
+                    <div class="contact-info-card contact-social-card upwork fade-in">
+                        <div class="contact-card-body">
+                            <div class="contact-card-icon">
+                                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v8"/>
+                                    <path d="M8 12h8"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">Upwork</div>
+                                <div class="contact-card-value">
+                                    <a href="https://www.upwork.com/freelancers/~01f46ac155d0568601" target="_blank" rel="noopener">
+                                        upwork.com/freelancers/~01f46ac155d0568601
+                                        <svg class="contact-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="5" y1="12" x2="19" y2="12"/>
+                                            <polyline points="12 5 19 12 12 19"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LinkedIn Card -->
+                    <div class="contact-info-card contact-social-card linkedin fade-in">
+                        <div class="contact-card-body">
+                            <div class="contact-card-icon">
+                                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                    <rect x="2" y="9" width="4" height="12"/>
+                                    <circle cx="4" cy="4" r="2"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">LinkedIn</div>
+                                <div class="contact-card-value">
+                                    <a href="https://linkedin.com/in/gor-yeghiazaryan" target="_blank" rel="noopener">
+                                        linkedin.com/in/gor-yeghiazaryan
+                                        <svg class="contact-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="5" y1="12" x2="19" y2="12"/>
+                                            <polyline points="12 5 19 12 12 19"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div class="contact-info-card fade-in" style="border: 1px solid var(--border);">
+                        <div class="contact-card-body">
+                            <div class="contact-card-icon" style="background: rgba(236, 72, 153, 0.1);">
+                                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #ec4899; fill: none;">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <div class="contact-card-label">Location</div>
+                                <div class="contact-card-value">Armenia — Available Worldwide</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="contact-form-wrapper fade-in">
+                    <h3>Send Me a Message</h3>
+                    <p>Fill out the form below and I'll get back to you within 24 hours.</p>
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Needed</label>
+                            <select id="service" name="service">
+                                <option value="">Select a service</option>
+                                <option value="shopify-setup">Shopify Store Setup</option>
+                                <option value="theme-customization">Theme Customization</option>
+                                <option value="frontend-dev">Frontend Development</option>
+                                <option value="bug-fixes">Bug Fixes & Troubleshooting</option>
+                                <option value="wordpress">WordPress Development</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Project Details</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project, goals, and timeline..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <a href="#" class="logo" style="color: white; margin-bottom: 1rem; display: inline-block;">Gor<span>Dev</span></a>
-            <p style="margin-bottom: 0.5rem;">Professional Shopify Developer & Frontend Specialist</p>
-            <p>&copy; 2024 Gor Yeghiazaryan. All rights reserved.</p>
+            <div class="footer-brand">
+                <a href="#" class="footer-logo">Gor<span>Dev</span></a>
+                <p class="footer-tagline">Professional Shopify Developer & Frontend Specialist</p>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-text">&copy; 2024 Gor Yeghiazaryan. Crafted with <span class="heart">♥</span> for great web experiences.</p>
+                <div class="footer-socials-modern">
+                   
+                    <a href="https://github.com/goryeghazaryan" target="_blank" rel="noopener" class="footer-social-link github" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.upwork.com/freelancers/~01f46ac155d0568601" target="_blank" rel="noopener" class="footer-social-link upwork" aria-label="Upwork">
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v8"/>
+                            <path d="M8 12h8"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:gor.yeghazaryan@mail.ru" class="footer-social-link email" aria-label="Email">
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </a>
+                </div>
+                <button class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Scroll Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -374,6 +617,58 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Copy Email Function
+        window.copyEmail = function(btn) {
+            const email = 'gor.yeghazaryan@mail.ru';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => setCopied(btn)).catch(() => fallbackCopy(btn, email));
+            } else {
+                fallbackCopy(btn, email);
+            }
+        };
+
+        function fallbackCopy(btn, text) {
+            const t = document.createElement('textarea');
+            t.value = text;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand('copy');
+            document.body.removeChild(t);
+            setCopied(btn);
+        }
+
+        function setCopied(btn) {
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+            }, 2000);
+        }
+
+        // Form Submit Handler
+        window.handleFormSubmit = function(e) {
+            e.preventDefault();
+            const form = document.getElementById('contactForm');
+            const btn = form.querySelector('.form-submit');
+            const orig = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                btn.style.background = '#10b981';
+
+                setTimeout(() => {
+                    btn.innerHTML = orig;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    form.reset();
+                }, 3000);
+            }, 1500);
+        };
     </script>
 </body>
 </html>
