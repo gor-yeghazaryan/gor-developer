@@ -446,7 +446,7 @@
                             <div class="contact-card-content">
                                 <div class="contact-card-label">Email Me</div>
                                 <div class="contact-card-value">
-                                    <a href="mailto:yeghazaryang@gmail.com">Let's Discuss Your Project</a>
+                                    <a href="mailto:yeghazaryang@gmail.com" class="email-copy">Let's Discuss Your Project</a>
                                 </div>
                             </div>
                         </div>
@@ -557,7 +557,7 @@
                             <path d="M8 12h8"/>
                         </svg>
                     </a>
-                    <a href="mailto:gor.yeghazaryan@mail.ru" class="footer-social-link email" aria-label="Email">
+                    <a href="mailto:yeghazaryang@gmail.com" class="footer-social-link email" aria-label="Email">
                         <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
@@ -587,13 +587,17 @@
 
         // Copy Email Function
         window.copyEmail = function(btn) {
-            const email = 'gor.yeghazaryan@mail.ru';
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(email).then(() => setCopied(btn)).catch(() => fallbackCopy(btn, email));
-            } else {
-                fallbackCopy(btn, email);
-            }
-        };
+                const card = btn.closest('.contact-email-card');
+                const emailElement = card.querySelector('.email-copy');
+            
+                const email = emailElement.innerText.trim();
+            
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email).then(() => setCopied(btn)).catch(() => fallbackCopy(btn, email));
+                } else {
+                    fallbackCopy(btn, email);
+                }
+            };
 
         function fallbackCopy(btn, text) {
             const t = document.createElement('textarea');
